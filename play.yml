@@ -20,4 +20,4 @@
      - common
      - postgres
      #- mattermost
-     #- nginx
+     - nginx
