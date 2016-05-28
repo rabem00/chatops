@@ -12,5 +12,7 @@ that the playbook needs to run on. Then use the following command to play:
 # Test db connection
 Attempt to connect with the new created user to verify everything looks good,
 for example:
-  psql --host=127.0.0.1 --dbname=mattermost --username=mmuser --password
+
+  # psql --host=127.0.0.1 --dbname=mattermost --username=mmuser --password
+  
   mattermost=> \q
