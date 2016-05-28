@@ -1,3 +1,8 @@
 ---
+  - name: update the yum cache
+    yum: update_cache=yes
+    when: ansible_os_family == "RedHat"
+
   - name: upgrade all packages
     yum: name=* state=latest
+    when: ansible_os_family == "RedHat"
