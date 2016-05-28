@@ -1,4 +1,24 @@
 ---
+  # Basic settings
+  el_version: 7
+  postgresql_version: 9.2
+
+  # Specify a directory for the logs if the default directory does not plan to use
+  postgresql_log_directory: /var/log/postgresql
+
+  # PostgreSQL users and roles
+  postgresql_admin_user: "postgres"
+
+  # Settings related to the pg_hba rules
+  postgresql_default_unix_auth_method: "trust"
+  postgresql_default_ipv4_auth_method: "md5"
+  postgresql_default_ipv6_auth_method: "md5"
+
+  # Specify default rules for pg_hba.conf. Change them only if it is really necessary.
+  # From the install mattermost site: host all all 10.10.10.2/32 md5
+  postgresql_pg_hba_default:
+   - { type: host, database: all, role: all, address: "127.0.0.1/32", method: "{{ postgresql_default_ipv4_auth_method }}", comment: 'IPv4 local connections:' }
+
   # PostgreSQL parameters which will appears in the postgresql.conf. Be aware, some parameters from newer postgresql versions, does not supported in the elder postrgesql versions, and may lead to the case when postgresql service does not start
   postgresql_conf_default_guc:
    - { regexp: "^#?listen_addresses = .*$", guc: "listen_addresses = '*'" }

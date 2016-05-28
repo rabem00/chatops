@@ -9,9 +9,6 @@
 - name: ensure initdb is run
   command: "postgresql-setup initdb"
 
-- name: start postgresql service
-  service: name="postgresql" state=started enabled=yes
-
 - name: ensure database is created
   sudo: yes
   sudo_user: postgres
@@ -41,3 +38,23 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.guc }}"
   with_items: postgresql_conf_default_guc
+
+- name: "configure pg_hba.conf"
+  template:
+    src: pg_hba.conf.j2
+    dest: "/var/lib/pgsql/data/pg_hba.conf"
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    mode: 0640
+
+- name: "create postgresql log directory"
+  file:
+    path: "{{ postgresql_log_directory }}"
+    state: directory
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    mode: 0755
+  when: postgresql_log_directory is defined
+
+- name: start postgresql service
+  service: name="postgresql" state=started enabled=yes
