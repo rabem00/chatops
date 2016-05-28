@@ -3,8 +3,11 @@
   yum:
     name: nginx
 
-- name: Apply http rule to firewalld
+- name: Apply http rule to firewalld to public zone
   firewalld: zone=public service=http permanent=true state=enabled
+
+- name: Apply httpS rule to firewalld to public zone
+  firewalld: zone=public service=https permanent=true state=enabled
 
 - name: Apply nginx config template
   template:
