@@ -33,3 +33,11 @@
   postgresql_user:
     name: "{{ db_user }}"
     role_attr_flags: NOSUPERUSER,NOCREATEDB
+
+- name: "configure postgresql.conf"
+  lineinfile:
+    dest: "/var/lib/pgsql/data/postgresql.conf"
+    state: present
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.guc }}"
+  with_items: postgresql_conf_default_guc

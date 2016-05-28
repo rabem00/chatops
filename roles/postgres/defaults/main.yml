@@ -1,0 +1,34 @@
+---
+  # PostgreSQL parameters which will appears in the postgresql.conf. Be aware, some parameters from newer postgresql versions, does not supported in the elder postrgesql versions, and may lead to the case when postgresql service does not start
+  postgresql_conf_default_guc:
+   - { regexp: "^#?listen_addresses = .*$", guc: "listen_addresses = '*'" }
+#  - { regexp: "^#?shared_preload_libraries = .*$", guc: "shared_preload_libraries = 'pg_stat_statements'" }
+#  - { regexp: "^#?work_mem = .*$", guc: "work_mem = 8MB" }
+#  - { regexp: "^#?maintenance_work_mem = .*$", guc: "maintenance_work_mem = 256MB" }
+#  - { regexp: "^#?max_stack_depth = .*$", guc: "max_stack_depth = 4MB" }
+#  - { regexp: "^#?max_files_per_process = .*$", guc: "max_files_per_process = 10000" }
+#  - { regexp: "^#?bgwriter_delay = .*$", guc: "bgwriter_delay = 10ms" }
+#  - { regexp: "^#?bgwriter_lru_maxpages = .*$", guc: "bgwriter_lru_maxpages = 1000" }
+#  - { regexp: "^#?bgwriter_lru_multiplier = .*$", guc: "bgwriter_lru_multiplier = 10.0" }
+#  - { regexp: "^#?effective_io_concurrency = .*$", guc: "effective_io_concurrency = 8" }
+#  - { regexp: "^#?wal_level = .*$", guc: "wal_level = {{'hot_standby' if postgresql_streaming_replication else 'minimal'}}" }
+#  - { regexp: "^#?fsync = .*$", guc: "fsync = on" }
+#  - { regexp: "^#?synchronous_commit = .*$", guc: "synchronous_commit = on" }
+#  - { regexp: "^#?full_page_writes = .*$", guc: "full_page_writes = on" }
+#  - { regexp: "^#?checkpoint_segments = .*$", guc: "checkpoint_segments = 32" }
+#  - { regexp: "^#?checkpoint_timeout = .*$", guc: "checkpoint_timeout = 30min" }
+#  - { regexp: "^#?checkpoint_completion_target = .*$", guc: "checkpoint_completion_target = 0.9" }
+#  - { regexp: "^#?max_wal_senders = .*$", guc: "max_wal_senders = {{ 6 if postgresql_streaming_replication else 0 }}" }
+#  - { regexp: "^#?wal_keep_segments = .*$", guc: "wal_keep_segments = {{ 256 if postgresql_streaming_replication else 0 }}" }
+#  - { regexp: "^#?hot_standby = .*$", guc: "hot_standby = {{ 'on' if postgresql_streaming_replication else 'off' }}" }
+#  - { regexp: "^#?hot_standby_feedback = .*$", guc: "hot_standby_feedback = {{ 'on' if postgresql_streaming_replication else 'off' }}" }
+#  - { regexp: "^#?log_destination = .*$", guc: "log_destination = 'stderr'" }
+#  - { regexp: "^#?logging_collector = .*$", guc: "logging_collector = on" }
+#  - { regexp: "^#?log_directory = .*$", guc: "log_directory = '{{ postgresql_log_directory | default('pg_log') }}'" }
+#  - { regexp: "^#?log_filename = .*$", guc: "log_filename = 'postgresql-%Y-%m-%d.log'" }
+#  - { regexp: "^#?log_rotation_age .*$", guc: "log_rotation_age = 1d" }
+#  - { regexp: "^#?log_min_duration_statement = .*$", guc: "log_min_duration_statement = 1000" }
+#  - { regexp: "^#?log_checkpoints .*$", guc: "log_checkpoints = on" }
+#  - { regexp: "^#?log_line_prefix = .*$", guc: "log_line_prefix = '%t %p %u@%d from %h [vxid:%v txid:%x] [%i] '" }
+#  - { regexp: "^#?track_io_timing = .*$", guc: "track_io_timing = on" }
+#  - { regexp: "^#?track_functions = .*$", guc: "track_functions = pl" }
