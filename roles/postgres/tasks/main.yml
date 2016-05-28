@@ -1,24 +1,24 @@
 ---
-- name: Ensure packages are installed
+- name: Ensure that the packages are installed
   yum: name={{item}}
   with_items:
     - postgresql-server
     - postgresql-contrib
     - python-psycopg2
 
-- name: Ensure initdb is run
+- name: Run postgresql-setup initdb
   command: "postgresql-setup initdb"
 
 - name: Restart postgresql service
   service: name="postgresql" state=started enabled=yes
 
-- name: Ensure database is created
+- name: Database should be created
   sudo: yes
   sudo_user: postgres
   postgresql_db:
     name: "{{ db_name }}"
 
-- name: Ensure user has access to database
+- name: User should have access to the database
   sudo: yes
   sudo_user: postgres
   postgresql_user:
@@ -27,14 +27,14 @@
     password: "{{ db_password }}"
     priv: ALL
 
-- name: Ensure user does not have unnecessary privilege
+- name: User should not have unnecessary privilege(s)
   sudo: yes
   sudo_user: postgres
   postgresql_user:
     name: "{{ db_user }}"
     role_attr_flags: NOSUPERUSER,NOCREATEDB
 
-- name: "Configure postgresql.conf"
+- name: Configure /var/lib/pgsql/data/postgresql.conf
   lineinfile:
     dest: "/var/lib/pgsql/data/postgresql.conf"
     state: present
@@ -42,7 +42,7 @@
     line: "{{ item.guc }}"
   with_items: postgresql_conf_default_guc
 
-- name: "Configure pg_hba.conf"
+- name: Configure /var/lib/pgsql/data/pg_hba.conf
   template:
     src: pg_hba.conf.j2
     dest: "/var/lib/pgsql/data/pg_hba.conf"
@@ -50,7 +50,7 @@
     group: "{{ postgresql_admin_user }}"
     mode: 0640
 
-- name: "Create postgresql log directory"
+- name: Create postgresql log directory structure
   file:
     path: "{{ postgresql_log_directory }}"
     state: directory
