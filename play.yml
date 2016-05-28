@@ -17,7 +17,7 @@
    # an external utility.
     db_password: Redhat
   roles:
-     #- common
+     - common
      - postgres
      #- mattermost
      #- nginx
