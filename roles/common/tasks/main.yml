@@ -7,8 +7,5 @@
     debug: msg="The following packet manager {{ ansible_pkg_mgr }} is not supported" fail=yes
     when: not ansible_pkg_mgr == "yum"
 
-  - name: Update the yum cache
-    yum: update_cache=yes
-
   - name: Upgrade all packages used on the hosts
     yum: name=* state=latest
