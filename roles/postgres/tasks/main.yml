@@ -6,6 +6,14 @@
     - postgresql-contrib
     - python-psycopg2
 
+- name: Stop old postgresql service
+  service: name="postgresql" state=stopped
+  when: postgresql_drop_old_installation
+
+- name: Remove old postgresql installation
+  command: "rm -rf /var/lib/pgsql/data"
+  when: postgresql_drop_old_installation
+
 - name: Run postgresql-setup initdb
   command: "postgresql-setup initdb"
 

@@ -3,6 +3,9 @@
   el_version: 7
   postgresql_version: 9.2
 
+  # Stop postgresql service if started and drop old installation if existing.
+  postgresql_drop_old_installation: yes
+
   # Specify a directory for the logs if the default directory does not plan to use
   postgresql_log_directory: /var/log/postgresql
 
