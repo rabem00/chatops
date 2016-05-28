@@ -15,7 +15,7 @@
 
    # Choose a secure password. It is recommended you create a random password using
    # an external utility.
-    db_password: mmuser_password
+    db_password: mmuser
   roles:
      - common
      - postgres
