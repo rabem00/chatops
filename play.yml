@@ -10,12 +10,12 @@
    # mattermost_user: mattermost
 
    # These do not need to be edited.
-    db_user: mmmost
+    db_user: mmuser
     db_name: mattermost
 
    # Choose a secure password. It is recommended you create a random password using
    # an external utility.
-    db_password: Redhat
+    db_password: mmuser_password
   roles:
      - common
      - postgres

@@ -1,9 +1,16 @@
 ---
 - name: ensure packages are installed
-  apt: name={{item}}
+  yum: name={{item}}
   with_items:
     - postgresql-server
     - postgresql-contrib
+    - python-psycopg2
+
+- name: ensure initdb is run
+  command: "postgresql-setup initdb"
+
+- name: start postgresql service
+  service: name="postgresql" state=started enabled=yes
 
 - name: ensure database is created
   sudo: yes
