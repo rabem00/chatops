@@ -3,6 +3,9 @@
   yum:
     name: nginx
 
+- name: Apply http rule to firewalld
+  firewalld: zone=public service=http permanent=true state=enabled
+
 - name: Apply nginx config template
   template:
     src: mattermost.j2
