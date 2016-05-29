@@ -1,0 +1,5 @@
+---
+# handlers file for mattermost
+
+- name: restart mattermost-team
+  systemd: name=mattermost-team state=restarted

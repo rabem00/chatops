@@ -3,7 +3,7 @@
 %define service         mattermost
 %define _name		%{service}-team
 %define _version	3.0.3
-%define _release	0
+%define _release	1
 %define _packager	%(echo "$USER") <%(echo "$USER")@yourdomain.com>
 %define _vendor		Mattermost
 %define _license	MIT
@@ -23,6 +23,8 @@ Source:			%{name}-%{version}.tar.gz
 Summary:		%{_vendor} %{_name}
 BuildRoot:		%{_topdir}/BUILDROOT/%{name}-%{version}
 Prefix:			%{_prefix}
+Requires:		postgresql-server
+Requires:		postgresql-contrib
 
 #--------------------------------------------------------------------#
 # Description                                                        #
@@ -54,7 +56,6 @@ mkdir -p %{buildroot}/opt/
 
 tar -xf %{name}-%{version}-linux-amd64.tar.gz
 mv mattermost %{buildroot}/opt/
-mkdir %{buildroot}/opt/%{service}/data
 
 cd %{buildroot}
 
@@ -114,8 +115,8 @@ rm -rf %{buildroot}
 #--------------------------------------------------------------------#
 %files -f /tmp/file.list.%{_name}
 %defattr(-, mattermost, mattermost,-)
-%dir %attr(755,mattermost,mattermost) /opt/%{service}/data
 %attr(644,root,root) /etc/systemd/system/%{service}.service
+%ghost /opt/mattermost/logs/mattermost.log
 
 #--------------------------------------------------------------------#
 # Changelog                                                          #
