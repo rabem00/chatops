@@ -1,0 +1,9 @@
+---
+# defaults file for mattermost
+
+mattermost_version: 3.0.3
+
+mattermost_name: mattermost
+mattermost_user: "{{ mattermost_name }}"
+mattermost_group: "{{ mattermost_name }}"
+mattermost_data_dir: "/opt/mattermost/data" 
