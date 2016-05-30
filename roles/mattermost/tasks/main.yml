@@ -1,0 +1,23 @@
+---
+# tasks file for mattermost
+
+- name: Install Mattermost Packages
+  yum: name=mattermost-team state=present
+
+- name: Make sure firewall is started and enabled
+  systemd: name=firewalld enabled=yes state=started
+
+# TODO: add firewalld ports
+
+- name: Create Mattermost Data Directory
+  file: path={{ mattermost_data_dir }}  state=directory mode=0755
+     group: {{ mattermost_user }}
+     owner: {{ mattermost_group }}
+
+# TODO: add json config - database configuration
+# TOOD: add json config - mattermost data dir location
+# TOOD: add json config - mattermost log dir location
+# TOOD: add json config - mattermost email config
+
+- name: Enable and Start Mattermost Service
+  systemd: name=mattermost-team enabled=yes state=started
