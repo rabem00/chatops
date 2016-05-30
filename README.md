@@ -1,5 +1,5 @@
 # chatops
-ChatOps setup using mattermost, ansible, hu-bot
+ChatOps setup using mattermost, ansible, hubot
 
 # Will work on
 This will only work on RHEL 7, postgresql 9.2 (default on RHEL 7)
