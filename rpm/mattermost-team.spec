@@ -3,7 +3,7 @@
 %define service         mattermost
 %define _name		%{service}-team
 %define _version	3.0.3
-%define _release	2
+%define _release	3
 %define _packager	"J Goossens"  <jgoos.github@gmail.com>
 %define _vendor		Mattermost
 %define _license	MIT
@@ -23,8 +23,6 @@ Source:			%{name}-%{version}.tar.gz
 Summary:		%{_vendor} %{_name}
 BuildRoot:		%{_topdir}/BUILDROOT/%{name}-%{version}
 Prefix:			%{_prefix}
-Requires:		postgresql-server
-Requires:		postgresql-contrib
 BuildRequires:  	systemd
 
 #--------------------------------------------------------------------#
@@ -125,6 +123,9 @@ rm -rf %{buildroot}
 # Changelog                                                          #
 #--------------------------------------------------------------------#
 %changelog
+* Tue May 31 2016 J Goossens <jgoos.github at gmail dot com>
+- 3.0.3-3 Removed postgres dependencies because Mattermost,
+  can also be run in multi server setup
 * Tue May 31 2016 J Goossens <jgoos.github at gmail dot com>
 - 3.0.3-2 Added dependencies and fixed scriptlet error
 * Sun May 29 2016 J Goossens <jgoos.github at gmail dot com>
