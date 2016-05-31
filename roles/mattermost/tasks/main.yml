@@ -7,17 +7,21 @@
 - name: Make sure firewall is started and enabled
   systemd: name=firewalld enabled=yes state=started
 
-# TODO: add firewalld ports
+# TODO: add firewalld ports (check nginx config)
 
 - name: Create Mattermost Data Directory
   file: path={{ mattermost_data_dir }}  state=directory mode=0755
      group: {{ mattermost_user }}
      owner: {{ mattermost_group }}
 
-# TODO: add json config - database configuration
-# TOOD: add json config - mattermost data dir location
-# TOOD: add json config - mattermost log dir location
-# TOOD: add json config - mattermost email config
+- name: Apply Mattermost config template
+  template:
+    src: config.json.j2
+    dest: /opt/mattermost/config/config.json
+  notify: restart mattermost-team
+
+# TODO: configure mattermost log dir location in template
+# TODO: configure mattermost email config in template
 
 - name: Enable and Start Mattermost Service
   systemd: name=mattermost-team enabled=yes state=started
