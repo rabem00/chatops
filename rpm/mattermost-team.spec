@@ -3,8 +3,8 @@
 %define service         mattermost
 %define _name		%{service}-team
 %define _version	3.0.3
-%define _release	1
-%define _packager	%(echo "$USER") <%(echo "$USER")@yourdomain.com>
+%define _release	3
+%define _packager	"J Goossens"  <jgoos.github@gmail.com>
 %define _vendor		Mattermost
 %define _license	MIT
 
@@ -23,14 +23,13 @@ Source:			%{name}-%{version}.tar.gz
 Summary:		%{_vendor} %{_name}
 BuildRoot:		%{_topdir}/BUILDROOT/%{name}-%{version}
 Prefix:			%{_prefix}
-Requires:		postgresql-server
-Requires:		postgresql-contrib
+BuildRequires:  	systemd
 
 #--------------------------------------------------------------------#
 # Description                                                        #
 #--------------------------------------------------------------------#
 %description
-The %{name} example service.
+Mattermost is an open source, self-hosted Slack-alternative
 
 -------------------------------------------------------------------------
 
@@ -76,10 +75,11 @@ done
 # Pre install script                                                 #
 #--------------------------------------------------------------------#
 %pre
-if [ $1 -eq 1 ] ; then
+if (( $1 == 1 ))
+then
 	# add the "mattermost" group and user
 	getent group mattermost >/dev/null || groupadd -r mattermost 
-	getent passwd mattermost >/dev/null || \
+	getent passwd mattermost || \
 	useradd -r -g mattermost -d /opt/mattermost \
 	    -s /sbin/nologin -c "Mattermost " mattermost
 
@@ -98,10 +98,11 @@ fi
 # Post uninstall script                                              #
 #--------------------------------------------------------------------#
 %postun
-if [ $1 -eq 0 ] ; then
+if (( $1 == 0 ))
+then
 	# remove the "mattermost" group and user
-	getent passwd mattermost >/dev/null && userdel mattermost
-	getent group mattermost >/dev/null && groupdel mattermost 
+	getent passwd mattermost >/dev/null && \
+		userdel mattermost >/dev/null 
 fi
 
 #--------------------------------------------------------------------#
@@ -122,6 +123,11 @@ rm -rf %{buildroot}
 # Changelog                                                          #
 #--------------------------------------------------------------------#
 %changelog
-* Sun May 29 2016 goosj at github
-- Created initial package for %{name} installation
+* Tue May 31 2016 J Goossens <jgoos.github at gmail dot com>
+- 3.0.3-3 Removed postgres dependencies because Mattermost,
+  can also be run in multi server setup
+* Tue May 31 2016 J Goossens <jgoos.github at gmail dot com>
+- 3.0.3-2 Added dependencies and fixed scriptlet error
+* Sun May 29 2016 J Goossens <jgoos.github at gmail dot com>
+- 3.0.3-1 Created initial package for %{name} installation
 

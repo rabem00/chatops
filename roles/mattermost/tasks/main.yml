@@ -5,14 +5,12 @@
   yum: name=mattermost-team state=present
 
 - name: Make sure firewall is started and enabled
-  systemd: name=firewalld enabled=yes state=started
+  service: name=firewalld enabled=yes state=started
 
 # TODO: add firewalld ports (check nginx config)
 
 - name: Create Mattermost Data Directory
-  file: path={{ mattermost_data_dir }}  state=directory mode=0755
-     group: {{ mattermost_user }}
-     owner: {{ mattermost_group }}
+  file: path="{{ mattermost_data_dir }}" state=directory mode=0755 group="{{ mattermost_user }}" owner="{{ mattermost_group }}"
 
 - name: Apply Mattermost config template
   template:
@@ -24,4 +22,4 @@
 # TODO: configure mattermost email config in template
 
 - name: Enable and Start Mattermost Service
-  systemd: name=mattermost-team enabled=yes state=started
+  service: name=mattermost-team enabled=yes state=started
