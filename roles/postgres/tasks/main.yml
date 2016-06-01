@@ -15,7 +15,8 @@
   when: postgresql_drop_old_installation
 
 # check if there is already a initialized db path
-- stat: path={{ postgresql_data_directory }}
+- name: Check if initialized db exists
+  stat: path={{ postgresql_data_directory }}
   register: db_path
 
 - name: Run postgresql-setup initdb
