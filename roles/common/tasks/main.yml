@@ -1,5 +1,5 @@
 ---
-  - name: Check OS support
+  - name: Check OS support to run
     debug: msg="The following OS family {{ ansible_os_family }} {{ ansible_architecture }} is not supported" fail=yes
     when: not ansible_os_family == "RedHat" or not ansible_architecture == "x86_64"
 
