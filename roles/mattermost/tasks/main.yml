@@ -22,4 +22,4 @@
 # TODO: configure mattermost email config in template
 
 - name: Enable and Start Mattermost Service
-  service: name=mattermost-team enabled=yes state=started
+  service: name=mattermost enabled=yes state=started
