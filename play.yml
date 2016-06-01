@@ -19,5 +19,5 @@
   roles:
      - common
      - postgres
-     #- mattermost
+     - mattermost
      - nginx
