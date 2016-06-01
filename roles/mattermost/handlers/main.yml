@@ -2,4 +2,4 @@
 # handlers file for mattermost
 
 - name: restart mattermost-team
-  service: name=mattermost-team state=restarted
+  service: name=mattermost state=restarted
