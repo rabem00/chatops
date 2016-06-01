@@ -11,11 +11,11 @@
   when: postgresql_drop_old_installation
 
 - name: Remove old postgresql installation
-  file: path="/var/lib/pgsql/data" state=absent
+  file: path={{ postgresql_data_directory }} state=absent
   when: postgresql_drop_old_installation
 
 # check if there is already a initialized db path
-- stat: path="/var/lib/pgsql/data"
+- stat: path={{ postgresql_data_directory }}
   register: db_path
 
 - name: Run postgresql-setup initdb
@@ -47,7 +47,7 @@
     name: "{{ db_user }}"
     role_attr_flags: NOSUPERUSER,NOCREATEDB
 
-- name: Configure /var/lib/pgsql/data/postgresql.conf
+- name: Configure {{ postgresql_data_directory }}/postgresql.conf
   lineinfile:
     dest: "/var/lib/pgsql/data/postgresql.conf"
     state: present
@@ -55,10 +55,10 @@
     line: "{{ item.guc }}"
   with_items: postgresql_conf_default_guc
 
-- name: Configure /var/lib/pgsql/data/pg_hba.conf
+- name: Configure {{ postgresql_data_directory }}/pg_hba.conf
   template:
     src: pg_hba.conf.j2
-    dest: "/var/lib/pgsql/data/pg_hba.conf"
+    dest: "{{ postgresql_data_directory }}/pg_hba.conf"
     owner: "{{ postgresql_admin_user }}"
     group: "{{ postgresql_admin_user }}"
     mode: 0640
