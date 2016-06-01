@@ -14,8 +14,13 @@
   file: path="/var/lib/pgsql/data" state=absent
   when: postgresql_drop_old_installation
 
+# check if there is already a initialized db path
+- stat: path="/var/lib/pgsql/data"
+  register: db_path
+
 - name: Run postgresql-setup initdb
   command: "postgresql-setup initdb"
+  when: db_path.stat.exists == False
 
 - name: Restart postgresql service
   service: name="postgresql" state=started enabled=yes
