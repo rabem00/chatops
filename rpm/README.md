@@ -3,12 +3,12 @@
 * Download the release you want to create the rpm for:
 	wget https://releases.mattermost.com/X.X.X/mattermost-team-X.X.X-linux-amd64.tar.gz
 
-* then edit the mattermost.spec to reflect the version
-* run make to build the rpm
+* Edit the mattermost.spec to reflect the version
+* Build the rpm by running: ``make``
 
 # Will work on
 
-This is tested only on RHEL 7
+This is tested only on RHEL7
 
 # Configuration 
 
@@ -18,4 +18,4 @@ The specfile is created according to the steps described in:
 # Build requirements
 
 Make sure rpm-build and rpmdevtools are installed:
-	yum install -y  rpm-build rpmdevtools
+	``yum install -y  rpm-build rpmdevtools``
