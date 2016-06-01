@@ -11,7 +11,7 @@
   when: postgresql_drop_old_installation
 
 - name: Remove old postgresql installation
-  command: "rm -rf /var/lib/pgsql/data"
+  file: path="/var/lib/pgsql/data" state=absent
   when: postgresql_drop_old_installation
 
 - name: Run postgresql-setup initdb
