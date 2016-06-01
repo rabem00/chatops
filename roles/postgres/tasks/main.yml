@@ -14,14 +14,13 @@
   file: path={{ postgresql_data_directory }} state=absent
   when: postgresql_drop_old_installation
 
-# check if there is already a initialized db path
 - name: Check if initialized db exists
-  stat: path={{ postgresql_data_directory }}
-  register: db_path
+  stat: path={{ postgresql_data_directory }}/base
+  register: db_datadir_path
 
 - name: Run postgresql-setup initdb
   command: "postgresql-setup initdb"
-  when: db_path.stat.exists == False
+  when: db_datadir_path.stat.exists == False
 
 - name: Restart postgresql service
   service: name="postgresql" state=started enabled=yes
@@ -55,6 +54,7 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.guc }}"
   with_items: postgresql_conf_default_guc
+  register: db_config
 
 - name: Configure {{ postgresql_data_directory }}/pg_hba.conf
   template:
@@ -63,6 +63,7 @@
     owner: "{{ postgresql_admin_user }}"
     group: "{{ postgresql_admin_user }}"
     mode: 0640
+  register: db_config
 
 - name: Create postgresql log directory structure
   file:
@@ -72,6 +73,8 @@
     group: "{{ postgresql_admin_user }}"
     mode: 0755
   when: postgresql_log_directory is defined
+  register: db_config
 
 - name: Reload postgresql service
   service: name="postgresql" state=reloaded
+  when: db_config.changed
