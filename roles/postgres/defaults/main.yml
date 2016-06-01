@@ -8,6 +8,7 @@
 
   # Specify a directory for the logs if the default directory does not plan to use
   postgresql_log_directory: /var/log/postgresql
+  postgresql_data_directory: /var/lib/pgsql/data
 
   # PostgreSQL users and roles
   postgresql_admin_user: "postgres"
