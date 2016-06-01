@@ -1,7 +1,7 @@
 # Create Mattermost rpm
 
 * Download the release you want to create the rpm for:
-	wget https://releases.mattermost.com/X.X.X/mattermost-team-X.X.X-linux-amd64.tar.gz
+	``wget https://releases.mattermost.com/X.X.X/mattermost-team-X.X.X-linux-amd64.tar.gz``
 
 * Edit the mattermost.spec to reflect the version
 * Build the rpm by running: ``make``
