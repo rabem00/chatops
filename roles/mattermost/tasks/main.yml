@@ -1,6 +1,5 @@
 ---
 # tasks file for mattermost
-
 - name: Install Mattermost Packages
   yum: name=mattermost-team state=present
 

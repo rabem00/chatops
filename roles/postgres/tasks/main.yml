@@ -1,4 +1,9 @@
 ---
+# get ip and register so we can re-use it
+- name: Get ip
+  setup: filter=ansible_eth0
+  register: postgres_server_ip
+
 - name: Ensure that the packages are installed
   yum: name={{item}}
   with_items:

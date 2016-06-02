@@ -7,8 +7,8 @@ mattermost_name: mattermost
 mattermost_user: "{{ mattermost_name }}"
 mattermost_group: "{{ mattermost_name }}"
 mattermost_database_driver: "postgres"
-mattermost_database_ip: "10.10.10.1:5432"
-# TODO: get database server ip from fact
+# get ip_address from host that runs postgres role
+mattermost_database_ip: "{{ postgres_server_ip.ansible_facts['ansible_eth0']['ipv4']['address'] }}:5432"
 #  db_password and db_user are from postgres role 
 mattermost_database_datasource: "postgres://{{ db_user }}:{{ db_password }}@{{ mattermost_database_ip }}/mattermost?sslmode=disable&connect_timeout=10"
 mattermost_data_dir: "/opt/mattermost/data"
