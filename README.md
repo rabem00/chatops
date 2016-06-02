@@ -1,4 +1,4 @@
-# chatops
+# ChatOps
 ChatOps setup using mattermost, ansible, hubot
 
 # Will work on
