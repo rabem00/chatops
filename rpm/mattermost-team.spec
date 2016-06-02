@@ -3,7 +3,7 @@
 %define service         mattermost
 %define _name		%{service}-team
 %define _version	3.0.3
-%define _release	3
+%define _release	4
 %define _packager	"J Goossens"  <jgoos.github@gmail.com>
 %define _vendor		Mattermost
 %define _license	MIT
@@ -88,6 +88,10 @@ fi
 # Post install script                                                #
 #--------------------------------------------------------------------#
 %post
+if (( $1 == 1 ))
+then
+	systemctl daemon-reload
+fi
 
 #--------------------------------------------------------------------#
 # Pre uninstall script                                               #
@@ -123,6 +127,8 @@ rm -rf %{buildroot}
 # Changelog                                                          #
 #--------------------------------------------------------------------#
 %changelog
+* Thu Jun 02 2016 J Goossens <jgoos.github at gmail dot com>
+- 3.0.3-4 Added systemctl daemon-reload
 * Tue May 31 2016 J Goossens <jgoos.github at gmail dot com>
 - 3.0.3-3 Removed postgres dependencies because Mattermost,
   can also be run in multi server setup
