@@ -29,9 +29,12 @@
   args:
     creates: /etc/nginx/ssl/mattermost.crt
 
-- name: Add mattermost site
+- name: Add Mattermost site
   file:
     path: /etc/nginx/conf.d/mattermost.conf
     #state: link
     #src: /etc/nginx/sites-available/mattermost
   notify: restart nginx
+
+- name: Add Mattermost port to selinux
+  seport: ports=8065 proto=tcp setype=http_port_t state=present
